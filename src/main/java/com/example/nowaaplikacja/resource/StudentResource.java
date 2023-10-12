@@ -23,10 +23,14 @@ public class StudentResource {
     }
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable UUID id){
-        var student = studentService.getStudentById(id);
-        if(student != null){
-            return ResponseEntity.ok(student);
-        }
-        return ResponseEntity.notFound().build();
+        var optionalStudent = studentService.getStudentById(id);
+        return optionalStudent
+                .map(ResponseEntity::ok)
+                .orElseGet(()-> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping
+    public void deleteByName(String name) {
+        studentService.deleteByName(name);
     }
 }

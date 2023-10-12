@@ -4,6 +4,7 @@ import com.example.nowaaplikacja.data.Student;
 import com.example.nowaaplikacja.data.StudentRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,7 +20,11 @@ public class StudentService {
         studentRepo.createStudent(student);
     }
 
-    public Student getStudentById(UUID id) {
+    public Optional<Student> getStudentById(UUID id) {
         return studentRepo.getStudentById(id);
+    }
+
+    public void deleteByName(String name) {
+        studentRepo.deleteByName(name);
     }
 }
