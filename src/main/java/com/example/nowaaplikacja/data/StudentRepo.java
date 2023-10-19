@@ -1,15 +1,15 @@
 package com.example.nowaaplikacja.data;
 
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 public class StudentRepo {
-    private final List<Student> students = new ArrayList<>();
+    @Setter
+    private List<Student> students = new ArrayList<>();
+
 
 
     public void createStudent(Student student) {
@@ -27,4 +27,12 @@ public class StudentRepo {
                 .toList();
         students.removeAll(studentsToRemove);
     }
+
+    public Long findByMaxIndex(){
+        return students.stream()
+                .map(Student::index)
+                .max(Comparator.naturalOrder())
+                .orElse(0L);
+    }
+
 }
