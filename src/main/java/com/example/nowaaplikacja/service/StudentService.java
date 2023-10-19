@@ -2,6 +2,7 @@ package com.example.nowaaplikacja.service;
 
 import com.example.nowaaplikacja.data.Student;
 import com.example.nowaaplikacja.data.StudentRepo;
+import com.example.nowaaplikacja.data.StudentUnit;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,8 +17,11 @@ public class StudentService {
         this.studentRepo = studentRepo;
     }
 
-    public void createStudent(Student student) {
-        studentRepo.createStudent(student);
+    public Student createStudent(Student student) {
+        var index = createIndex(student.unit());
+        var studentToSave = new Student(student.id(), student.name(), student.unit(), index);
+        studentRepo.createStudent(studentToSave);
+        return studentToSave;
     }
 
     public Optional<Student> getStudentById(UUID id) {
@@ -26,5 +30,13 @@ public class StudentService {
 
     public void deleteByName(String name) {
         studentRepo.deleteByName(name);
+    }
+
+    private Long createIndex(StudentUnit unit){
+        if(StudentUnit.GDANSK.equals(unit)){
+            return 5 * studentRepo.findByMaxIndex();
+        } else {
+            return 10* studentRepo.findByMaxIndex();
+        }
     }
 }
