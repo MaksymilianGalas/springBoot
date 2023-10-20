@@ -18,8 +18,8 @@ public class StudentService {
     }
 
     public Student createStudent(Student student) {
-        var index = createIndex(student.unit());
-        var studentToSave = new Student(student.id(), student.name(), student.unit(), index);
+        var index = createIndex(student.getUnit());
+        var studentToSave = new Student(student.getId(), student.getName(), student.getUnit(), student.getIndex());
         studentRepo.createStudent(studentToSave);
         return studentToSave;
     }

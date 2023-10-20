@@ -18,19 +18,19 @@ public class StudentRepo {
 
     public Optional<Student> getStudentById(UUID id) {
         return students.stream()
-                .filter(it -> it.id().equals(id))
+                .filter(it -> it.getId().equals(id))
                 .findFirst();
     }
     public void deleteByName(String name) {
         var studentsToRemove = students.stream()
-                .filter(it -> it.name().equals(name))
+                .filter(it -> it.getName().equals(name))
                 .toList();
         students.removeAll(studentsToRemove);
     }
 
     public Long findByMaxIndex(){
         return students.stream()
-                .map(Student::index)
+                .map(Student::getIndex)
                 .max(Comparator.naturalOrder())
                 .orElse(0L);
     }
