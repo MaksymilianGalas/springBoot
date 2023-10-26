@@ -1,11 +1,12 @@
 spring:
   application:
     name: students
-datasource:
-  url: jdbc:postgresql://localhost:54329/student
-  username: student
-  password: student
+  datasource:
+    url: jdbc:postgresql://localhost:54329/student
+    username: student
+    password: student
   jpa:
     hibernate:
       ddl-auto: create-drop
     database: postgresql
+    generated-ddl: true
